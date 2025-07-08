@@ -1,0 +1,167 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #0e0e0e;
+  color: #eee;
+  /* display: flex; /* إزالة هذا السطر لأن القائمة ستكون فوق المحتوى وليست بجانبه */
+  flex-direction: row;
+  min-height: 100vh;
+  direction: rtl; /* أضفت هذا لضمان الاتجاه RTL بشكل صريح في Body */
+}
+
+/* ======= SIDEBAR ======= */
+.sidebar {
+  width: 220px;
+  background-color: #1a1a1a;
+  padding: 20px;
+  box-shadow: 2px 0 10px rgba(128, 0, 128, 0.4);
+  position: fixed;
+  right: -220px; /* إخفاء القائمة في البداية: خارج الشاشة من اليمين */
+  top: 0;
+  bottom: 0;
+  transition: right 0.3s ease; /* تعديل Transition property */
+  z-index: 999;
+}
+
+/* هذا الكلاس يضاف بواسطة JavaScript لإظهار القائمة */
+.sidebar.active {
+  right: 0; /* إظهار القائمة بتحريكها إلى الموضع 0 من اليمين */
+}
+
+
+.sidebar h2 {
+  color: #bb00ff;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.sidebar a {
+  display: block;
+  padding: 10px 0;
+  color: #eee;
+  text-decoration: none;
+  transition: 0.3s;
+  border-right: 3px solid transparent;
+  padding-right: 10px;
+}
+
+.sidebar a:hover {
+  color: #bb00ff;
+  border-color: #bb00ff;
+  background-color: #222;
+}
+
+/* ======= CONTENT ======= */
+.content {
+  margin-right: 0; /* لا يوجد هامش ثابت هنا، سيتم التحكم به بواسطة JS/CSS */
+  padding: 40px;
+  width: 100%;
+  transition: margin-right 0.3s ease; /* إضافة transition للمحتوى */
+}
+
+/* هذا الكلاس يضاف لـ body بواسطة JavaScript */
+/* ليقوم بإزاحة المحتوى عندما تكون القائمة مفتوحة */
+body.sidebar-open .content {
+    margin-right: 220px; /* نفس عرض السايدبار لإزاحة المحتوى */
+}
+
+
+.content h1 {
+  color: #bb00ff;
+  margin-bottom: 10px;
+}
+
+.content p {
+  font-size: 18px;
+  color: #ccc;
+}
+
+.download-btn {
+  display: inline-block;
+  background-color: #bb00ff;
+  color: white;
+  padding: 12px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 6px;
+  transition: background 0.3s;
+  margin-top: 15px;
+}
+
+.download-btn:hover {
+  background-color: #8a00cc;
+}
+
+.panel {
+  background-color: #1a1a1a;
+  border: 1px solid #444;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(187, 0, 255, 0.2);
+}
+
+.panel h2 {
+  color: #bb00ff;
+  margin-bottom: 10px;
+}
+
+.panel p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #ccc;
+}
+
+/* زر القائمة (Menu Toggle Button) */
+.menu-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: #bb00ff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.menu-toggle:hover {
+    background-color: #8a00cc;
+}
+
+
+/* ======= RESPONSIVE (تعديلات الشاشات الصغيرة) ======= */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px; /* تصغير عرض السايدبار في الشاشات الصغيرة */
+    right: -200px; /* إخفائه حسب عرضه الجديد */
+    /* باقي الخصائص كما هي */
+  }
+
+  .sidebar.active {
+    right: 0; /* إظهاره */
+  }
+
+  /* هنا نعدل مكان زر القائمة فقط، التنسيقات الأساسية موجودة بالأعلى */
+  .menu-toggle {
+    top: 15px;
+    right: 15px;
+  }
+
+  .content {
+    margin-right: 0; /* إلغاء الهامش الثابت في الشاشات الصغيرة */
+    padding: 80px 20px 20px; /* زيادة الهامش العلوي لتجنب تداخل الزر */
+  }
+
+  /* تحريك المحتوى في الشاشات الصغيرة عندما تظهر القائمة */
+  body.sidebar-open .content {
+    margin-right: 200px; /* نفس عرض السايدبار الجديد */
+  }
+}
